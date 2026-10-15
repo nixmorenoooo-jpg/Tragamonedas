@@ -1,4 +1,3 @@
-// lib/screens/game_screen.dart
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
@@ -13,16 +12,15 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
-  bool _girando = false; // true mientras la máquina gira
+  bool _girando = false; 
 
   void _girar() {
-    if (_girando) return; // evita girar dos veces seguidas
+    if (_girando) return; 
     setState(() {
       _girando = true;
     });
   }
 
-  // Se ejecuta automáticamente al finalizar la animación de los 3 rodillos
   void _alTerminarGiro(List<String> resultados) {
     if (!mounted) return;
 
@@ -30,15 +28,12 @@ class _GameScreenState extends State<GameScreen> {
       _girando = false;
     });
 
-    // PROVISIONAL: Evaluación básica hasta que el Integrante 3 conecte sus listas
-    // Verifica si los 3 símbolos son idénticos
     final bool esPremio = resultados[0] == resultados[1] && resultados[1] == resultados[2];
     final String mensaje = esPremio ? '¡Felicidades! Ganas un premio' : 'Haz 10 sentadillas';
 
     mostrarResultado(context, esPremio: esPremio, mensaje: mensaje);
   }
-
-  // Cuerpo rojo de la máquina con el título, los rodillos y las luces
+  
   Widget _cuerpoMaquina() {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -74,8 +69,6 @@ class _GameScreenState extends State<GameScreen> {
               border: Border.all(color: Colors.white24, width: 2),
             ),
 
-
-            //  Componente de los rodillos con animación
             child: SlotMachineReels(
               girando: _girando,
               onAnimationComplete: _alTerminarGiro,
@@ -110,7 +103,7 @@ class _GameScreenState extends State<GameScreen> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              // Máquina + palanca al lado
+              
               Row(
                 children: [
                   Expanded(child: _cuerpoMaquina()),
@@ -119,7 +112,7 @@ class _GameScreenState extends State<GameScreen> {
                 ],
               ),
               const SizedBox(height: 24),
-              // Botón grande de giro
+            
               SizedBox(
                 width: double.infinity,
                 height: 60,
@@ -140,7 +133,7 @@ class _GameScreenState extends State<GameScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              // Leyenda
+             
               const Row(
                 children: [
                   _Luz(color: AppColors.premioInicio, tamano: 14),
@@ -160,7 +153,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 }
 
-// Palanca (tirador) de la máquina
+
 class _Palanca extends StatelessWidget {
   final VoidCallback? onTap;
   const _Palanca({required this.onTap});
@@ -195,7 +188,7 @@ class _Palanca extends StatelessWidget {
   }
 }
 
-// Luz circular decorativa
+
 class _Luz extends StatelessWidget {
   final Color color;
   final double tamano;
